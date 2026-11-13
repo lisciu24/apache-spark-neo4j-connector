@@ -1,0 +1,21 @@
+services:
+  neo4j:
+    image: docker.io/library/neo4j:2026.10.2
+    # volumes:
+        
+    environment:
+        - NEO4J_AUTH=neo4j/password
+        - NEO4J_PLUGINS=["graph-data-science"]
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    restart: always
+
+  spark:
+    image: quay.io/jupyter/pyspark-notebook:spark-4.1.2
+    ports:
+      - "8888:8888"
+      - "4040:4040"
+    volumes:
+      - ./notebooks:/home/jovyan/work
+      - ./data:/workspace/data
